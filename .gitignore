@@ -36,6 +36,16 @@
 *.exe
 *.out
 *.app
+*.bin
 
 # debug information files
 *.dwo
+
+# clang-format
+.clang-format
+
+# MacOS
+.DS_Store
+
+# VS Code
+.vscode
