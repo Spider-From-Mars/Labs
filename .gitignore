@@ -46,6 +46,11 @@
 
 # MacOS
 .DS_Store
+*.dSYM
 
 # VS Code
 .vscode
+
+# Tests
+testGen.py
+/screens
