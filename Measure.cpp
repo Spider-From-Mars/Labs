@@ -33,6 +33,7 @@ void Measure::checkLimit()
 
 long Measure::getMemoryUsage()
 {
+    // Возвращает общий пик (максимум) потребления резидентной памяти процесса
     struct rusage usage;
 
     if (getrusage(RUSAGE_SELF, &usage) == 0)
