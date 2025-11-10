@@ -115,6 +115,7 @@ char **getData(unsigned N)
         {
             capacity *= 2;
             char **tmp = new char *[capacity];
+            // Вместо еще одного цикла используем эту функцию
             memcpy(tmp, nums, i * sizeof(char *));
             delete[] nums;
             nums = tmp;
