@@ -3,56 +3,6 @@
 using namespace std;
 
 // ============================
-// Подсчёт количества входов
-// ============================
-long long countTotal(const vector<Variable> &vars)
-{
-    // Количество вариантов входных значений, в зависимости от переменной
-    long long total = 1;
-
-    for (const auto &v : vars)
-    {
-        switch (v.type)
-        {
-        case VarType::INT_RANGE:
-        {
-            auto r = get<IntRange>(v.data);
-            total *= (r.maxVal - r.minVal + 1);
-            break;
-        }
-
-        case VarType::DOUBLE_RANGE:
-        {
-            auto r = get<DoubleRange>(v.data);
-            long long count = llround((r.maxVal - r.minVal) / r.step) + 1;
-            total *= count;
-            break;
-        }
-
-        case VarType::ENUM_VALUES:
-        {
-            auto e = get<EnumValues>(v.data);
-            total *= e.values.size();
-            break;
-        }
-
-        case VarType::STRING_VALUES:
-        {
-            auto s = get<StringValues>(v.data);
-            total *= s.values.size();
-            break;
-        }
-
-        case VarType::BOOL_TYPE:
-            total *= 2; // true или false
-            break;
-        }
-    }
-
-    return total;
-}
-
-// ============================
 // Типичные тесты (min, mid, max)
 // ============================
 vector<vector<string>> generateTypical(const vector<Variable> &vars)
@@ -76,15 +26,15 @@ vector<vector<string>> generateTypical(const vector<Variable> &vars)
             break;
         }
 
-        case VarType::DOUBLE_RANGE:
-        {
-            auto r = get<DoubleRange>(v.data);
-            double mid = (r.minVal + r.maxVal) / 2.0;
-            minCase.push_back(to_string(r.minVal));
-            midCase.push_back(to_string(mid));
-            maxCase.push_back(to_string(r.maxVal));
-            break;
-        }
+            // case VarType::DOUBLE_RANGE:
+            // {
+            //     auto r = get<DoubleRange>(v.data);
+            //     double mid = (r.minVal + r.maxVal) / 2.0;
+            //     minCase.push_back(to_string(r.minVal));
+            //     midCase.push_back(to_string(mid));
+            //     maxCase.push_back(to_string(r.maxVal));
+            //     break;
+            // }
 
         case VarType::ENUM_VALUES:
         {
@@ -130,11 +80,6 @@ void generateAllRec(const vector<Variable> &vars, int idx, vector<string> &cur)
         for (auto &s : cur)
             cout << s << " ";
         cout << "\n";
-        // DELETE ============
-        // for (auto &s : cur)
-        //     cout << s << " ";
-        // cout << "\n";
-        // DELETE END ============
 
         return;
     }
@@ -155,16 +100,16 @@ void generateAllRec(const vector<Variable> &vars, int idx, vector<string> &cur)
         break;
     }
 
-    case VarType::DOUBLE_RANGE:
-    {
-        auto r = get<DoubleRange>(v.data);
-        for (double x = r.minVal; x <= r.maxVal + 1e-12; x += r.step)
-        {
-            cur[idx] = to_string(x);
-            generateAllRec(vars, idx + 1, cur);
-        }
-        break;
-    }
+        // case VarType::DOUBLE_RANGE:
+        // {
+        //     auto r = get<DoubleRange>(v.data);
+        //     for (double x = r.minVal; x <= r.maxVal + 1e-12; x += r.step)
+        //     {
+        //         cur[idx] = to_string(x);
+        //         generateAllRec(vars, idx + 1, cur);
+        //     }
+        //     break;
+        // }
 
     case VarType::ENUM_VALUES:
     {
